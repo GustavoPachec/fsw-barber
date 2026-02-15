@@ -12,45 +12,47 @@ interface BarbershopItemProps {
 
 const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
   return (
-    <Card className="w-full min-w-[160px] max-w-[280px] rounded-2xl border shadow-md transition-shadow duration-200 hover:shadow-lg sm:min-w-[180px] md:min-w-[200px] lg:min-w-[220px] xl:min-w-[200px] 2xl:min-w-[180px]">
-      <CardContent className="p-0 px-1 pt-1 sm:px-2 sm:pt-2">
-        {/* IMAGEM */}
-        <div className="relative h-[140px] w-full sm:h-[160px] md:h-[180px] lg:h-[200px] xl:h-[160px] 2xl:h-[140px]">
-          <Image
-            alt={barbershop.name}
-            fill
-            className="rounded-2xl object-cover"
-            src={barbershop.imageUrl}
-            sizes="(max-width: 640px) 160px, (max-width: 768px) 180px, (max-width: 1024px) 200px, (max-width: 1280px) 220px, 200px"
-          />
+    <Link href={`/barbershops/${barbershop.id}`}>
+      <Card className="group flex min-h-0 w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-lg">
+        <CardContent className="flex flex-col p-0">
+          {/* IMAGEM */}
+          <div className="relative aspect-video max-h-44 w-full flex-shrink-0 overflow-hidden bg-muted sm:aspect-square sm:max-h-60">
+            <Image
+              alt={barbershop.name}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              src={barbershop.imageUrl}
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            />
 
-          <Badge
-            className="absolute left-2 top-2 space-x-1 text-xs"
-            variant="secondary"
-          >
-            <StarIcon size={10} className="fill-primary text-primary" />
-            <span className="text-xs font-semibold">5,0</span>
-          </Badge>
-        </div>
+            <Badge
+              className="absolute left-2 top-2 space-x-1 border border-primary/20 bg-background/90 text-xs backdrop-blur-sm sm:left-3 sm:top-3"
+              variant="secondary"
+            >
+              <StarIcon size={12} className="fill-primary text-primary" />
+              <span className="font-semibold">5,0</span>
+            </Badge>
+          </div>
 
-        {/* TEXTO */}
-        <div className="px-1 py-2 sm:px-2 sm:py-3">
-          <h3 className="truncate text-sm font-semibold sm:text-base lg:text-lg">
-            {barbershop.name}
-          </h3>
-          <p className="truncate text-xs text-gray-400 sm:text-sm md:text-base">
-            {barbershop.address}
-          </p>
-          <Button
-            variant="secondary"
-            className="mt-2 w-full text-xs sm:mt-3 sm:text-sm"
-            asChild
-          >
-            <Link href={`/barbershops/${barbershop.id}`}>Reservar</Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          {/* TEXTO */}
+          <div className="flex min-h-0 flex-grow flex-col space-y-0.5 p-1.5 sm:space-y-2 sm:p-3">
+            <h3 className="line-clamp-1 text-xs font-semibold leading-tight sm:line-clamp-2 sm:text-sm">
+              {barbershop.name}
+            </h3>
+            <p className="line-clamp-1 flex-grow text-xs text-muted-foreground sm:line-clamp-2">
+              {barbershop.address}
+            </p>
+            <Button
+              variant="secondary"
+              className="mt-0.5 w-full text-xs"
+              size="sm"
+            >
+              Reservar Agora
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
 

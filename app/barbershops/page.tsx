@@ -38,23 +38,53 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
     },
   })
 
+  const searchQuery = searchParams?.title || searchParams?.service
+
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="my-6 px-5">
-        <Search />
-      </div>
-      <div className="px-5">
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Resultados para &quot;{searchParams?.title || searchParams?.service}
-          &quot;
-        </h2>
-        <div className="grid grid-cols-2 gap-4">
-          {barbershops.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-          ))}
+      <main className="mx-auto w-full max-w-7xl flex-1 px-3 py-4 sm:px-6 sm:py-10 md:px-8 md:py-12 lg:px-10">
+        <div className="mb-8">
+          <div className="mb-6">
+            <h1 className="mb-2 text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
+              Barbearias
+            </h1>
+            <p className="text-sm text-muted-foreground sm:text-base">
+              {searchQuery
+                ? `Resultados para "${searchQuery}"`
+                : "Encontre a barbearia perfeita"}
+            </p>
+          </div>
+          <Search />
         </div>
-      </div>
+
+        {barbershops.length === 0 ? (
+          <div className="flex h-64 items-center justify-center rounded-2xl border border-border/50 bg-secondary/30">
+            <div className="px-4 text-center">
+              <p className="text-base font-medium text-muted-foreground sm:text-lg">
+                Nenhuma barbearia encontrada
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground/70">
+                Tente buscar por outro termo ou navegue por nossa seção de
+                populares
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <p className="mb-6 text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:text-sm">
+              {barbershops.length} resultado
+              {barbershops.length !== 1 ? "s" : ""} encontrado
+              {barbershops.length !== 1 ? "s" : ""}
+            </p>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-3 lg:gap-4 xl:gap-4">
+              {barbershops.map((barbershop) => (
+                <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   )
 }

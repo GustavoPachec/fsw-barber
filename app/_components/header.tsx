@@ -8,22 +8,34 @@ import Link from "next/link"
 
 const Header = () => {
   return (
-    <Card>
-      <CardContent className="flex flex-row items-center justify-between p-5">
-        <Link href="/">
-          <Image alt="FSW Barber" src="/logo.png" height={18} width={120} />
-        </Link>
+    <div className="border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10">
+        <div className="flex flex-row items-center justify-between py-4 sm:py-5">
+          <Link href="/" className="transition-opacity hover:opacity-80">
+            <Image
+              alt="FSW Barber"
+              src="/logo.png"
+              height={24}
+              width={140}
+              priority
+            />
+          </Link>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button size="icon" variant="outline">
-              <MenuIcon />
-            </Button>
-          </SheetTrigger>
-          <SidebarSheet />
-        </Sheet>
-      </CardContent>
-    </Card>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="transition-all hover:bg-muted"
+              >
+                <MenuIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              </Button>
+            </SheetTrigger>
+            <SidebarSheet />
+          </Sheet>
+        </div>
+      </div>
+    </div>
   )
 }
 

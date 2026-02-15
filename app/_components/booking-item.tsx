@@ -45,13 +45,13 @@ interface BookingItemProps {
   }>
 }
 
-// TODO: receber agendamento como prop
 const BookingItem = ({ booking }: BookingItemProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const {
     service: { barbershop },
   } = booking
   const isConfirmed = isFuture(booking.date)
+
   const handleCancelBooking = async () => {
     try {
       await deleteBooking(booking.id)
@@ -62,37 +62,44 @@ const BookingItem = ({ booking }: BookingItemProps) => {
       toast.error("Erro ao cancelar reserva. Tente novamente.")
     }
   }
+
   const handleSheetOpenChange = (isOpen: boolean) => {
     setIsSheetOpen(isOpen)
   }
+
   return (
     <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
-      <SheetTrigger className="w-full min-w-[90%]">
-        <Card className="min-w-[90%]">
-          <CardContent className="flex justify-between p-0">
+      <SheetTrigger className="w-full">
+        <Card className="w-full cursor-pointer transition-all duration-300 hover:shadow-lg active:scale-95">
+          <CardContent className="flex min-h-[100px] justify-between p-0">
             {/* ESQUERDA */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
+            <div className="flex flex-1 flex-col gap-2 py-4 pl-4 sm:py-5 sm:pl-5">
               <Badge
-                className="w-fit"
+                className="w-fit text-xs font-semibold"
                 variant={isConfirmed ? "default" : "secondary"}
               >
-                {isConfirmed ? "Confirmado" : "Finalizado"}
+                {isConfirmed ? "✓ Confirmado" : "✓ Finalizado"}
               </Badge>
-              <h3 className="font-semibold">{booking.service.name}</h3>
+              <h3 className="line-clamp-1 text-left font-semibold sm:text-base md:text-lg">
+                {booking.service.name}
+              </h3>
 
               <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
+                <Avatar className="h-6 w-6 sm:h-7 sm:w-7">
                   <AvatarImage src={booking.service.barbershop.imageUrl} />
                 </Avatar>
-                <p className="text-sm">{booking.service.barbershop.name}</p>
+                <p className="truncate text-xs text-muted-foreground sm:text-sm">
+                  {booking.service.barbershop.name}
+                </p>
               </div>
             </div>
+
             {/* DIREITA */}
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
-              <p className="text-sm capitalize">
-                {format(booking.date, "MMMM", { locale: ptBR })}
+            <div className="flex flex-col items-center justify-center border-l border-border/50 bg-secondary/30 px-4 sm:px-5">
+              <p className="text-xs font-medium capitalize text-muted-foreground sm:text-sm">
+                {format(booking.date, "MMM", { locale: ptBR })}
               </p>
-              <p className="text-2xl">
+              <p className="text-2xl font-bold text-primary sm:text-3xl">
                 {format(booking.date, "dd", { locale: ptBR })}
               </p>
               <p className="text-sm">
@@ -102,7 +109,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           </CardContent>
         </Card>
       </SheetTrigger>
-      <SheetContent className="w-[85%]">
+
+      <SheetContent className="w-[90%] sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="text-left">Informações da Reserva</SheetTitle>
         </SheetHeader>
@@ -120,9 +128,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               <Avatar>
                 <AvatarImage src={barbershop.imageUrl} />
               </Avatar>
-              <div>
-                <h3 className="font-bold">{barbershop.name}</h3>
-                <p className="text-xs">{barbershop.address}</p>
+              <div className="flex-1 overflow-hidden">
+                <h3 className="truncate font-bold">{barbershop.name}</h3>
+                <p className="truncate text-xs">{barbershop.address}</p>
               </div>
             </CardContent>
           </Card>
@@ -150,21 +158,22 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             ))}
           </div>
         </div>
+
         <SheetFooter className="mt-6">
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-3">
             <SheetClose asChild>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="flex-1">
                 Voltar
               </Button>
             </SheetClose>
             {isConfirmed && (
               <Dialog>
-                <DialogTrigger className="w-full">
+                <DialogTrigger className="flex-1">
                   <Button variant="destructive" className="w-full">
                     Cancelar Reserva
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="w-[90%]">
+                <DialogContent className="w-[90%] sm:max-w-md">
                   <DialogHeader>
                     <DialogTitle>Você deseja cancelar sua reserva?</DialogTitle>
                     <DialogDescription>
@@ -174,11 +183,11 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                   </DialogHeader>
                   <DialogFooter className="flex flex-row gap-3">
                     <DialogClose asChild>
-                      <Button variant="secondary" className="w-full">
+                      <Button variant="secondary" className="flex-1">
                         Voltar
                       </Button>
                     </DialogClose>
-                    <DialogClose className="w-full">
+                    <DialogClose className="flex-1">
                       <Button
                         variant="destructive"
                         onClick={handleCancelBooking}

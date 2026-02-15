@@ -163,10 +163,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   return (
     <>
-      <Card>
-        <CardContent className="flex items-center gap-3 p-3">
+      <Card className="group overflow-hidden rounded-xl border border-border shadow-sm transition-all duration-300 hover:shadow-lg">
+        <CardContent className="flex h-full items-center gap-3 p-4 sm:gap-4 sm:p-4">
           {/* IMAGE */}
-          <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px] sm:max-h-[130px] sm:min-h-[130px] sm:min-w-[130px] sm:max-w-[130px]">
+          <div className="relative h-[100px] w-[100px] shrink-0 overflow-hidden rounded-lg bg-muted sm:h-[120px] sm:w-[120px]">
             <Image
               alt={service.name}
               src={service.imageUrl}
@@ -174,16 +174,20 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               className="rounded-lg object-cover"
             />
           </div>
+
           {/* DIREITA */}
-          <div className="space-y-2 sm:space-y-3">
-            <h3 className="text-sm font-semibold sm:text-base">
-              {service.name}
-            </h3>
-            <p className="text-sm text-gray-400 sm:text-base">
-              {service.description}
-            </p>
+          <div className="flex flex-1 flex-col justify-between space-y-2 overflow-hidden sm:space-y-3">
+            <div>
+              <h3 className="line-clamp-2 text-sm font-semibold sm:text-base">
+                {service.name}
+              </h3>
+              <p className="line-clamp-2 text-xs text-muted-foreground sm:text-sm">
+                {service.description}
+              </p>
+            </div>
+
             {/* PREÇO E BOTÃO */}
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 pt-2">
               <p className="text-sm font-bold text-primary sm:text-base">
                 {Intl.NumberFormat("pt-BR", {
                   style: "currency",
@@ -199,16 +203,20 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   variant="secondary"
                   size="sm"
                   onClick={handleBookingClick}
+                  className="text-xs transition-all hover:shadow-md sm:text-sm"
                 >
                   Reservar
                 </Button>
 
-                <SheetContent className="px-0">
-                  <SheetHeader>
-                    <SheetTitle>Fazer Reserva</SheetTitle>
+                <SheetContent className="w-[90%] overflow-y-auto px-0 sm:max-w-md">
+                  <SheetHeader className="px-5 sm:px-6">
+                    <SheetTitle>Fazer Reserva para {service.name}</SheetTitle>
                   </SheetHeader>
 
-                  <div className="sm-py-6 border-b border-solid py-5">
+                  <div className="border-b border-border/50 px-5 py-5 sm:px-6 sm:py-6">
+                    <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Selecione a Data
+                    </h3>
                     <Calendar
                       mode="single"
                       locale={ptBR}
@@ -242,30 +250,35 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   </div>
 
                   {selectedDay && (
-                    <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 sm:p-6 [&::-webkit-scrollbar]:hidden">
-                      {timeList.length > 0 ? (
-                        timeList.map((time) => (
-                          <Button
-                            key={time}
-                            variant={
-                              selectedTime === time ? "default" : "outline"
-                            }
-                            className="rounded-full"
-                            onClick={() => handleTimeSelect(time)}
-                          >
-                            {time}
-                          </Button>
-                        ))
-                      ) : (
-                        <p className="text-xs">
-                          Não há horários disponíveis para este dia.
-                        </p>
-                      )}
+                    <div className="border-b border-border/50 p-5 sm:p-6">
+                      <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        Horários Disponíveis
+                      </h3>
+                      <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+                        {timeList.length > 0 ? (
+                          timeList.map((time) => (
+                            <Button
+                              key={time}
+                              variant={
+                                selectedTime === time ? "default" : "outline"
+                              }
+                              className="flex-shrink-0 rounded-full transition-all hover:scale-105"
+                              onClick={() => handleTimeSelect(time)}
+                            >
+                              {time}
+                            </Button>
+                          ))
+                        ) : (
+                          <p className="w-full text-xs text-muted-foreground sm:text-sm">
+                            Nenhum horário disponível para este dia.
+                          </p>
+                        )}
+                      </div>
                     </div>
                   )}
 
                   {selectedDate && (
-                    <div className="sm-p-6 p-5">
+                    <div className="p-5 sm:p-6">
                       <BookingSummary
                         barbershop={barbershop}
                         service={service}
@@ -273,13 +286,14 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       />
                     </div>
                   )}
-                  <SheetFooter className="mt-5 px-5 sm:px-6">
+
+                  <SheetFooter className="px-5 pb-5 sm:px-6">
                     <Button
                       onClick={handleCreateBooking}
                       disabled={!selectedDay || !selectedTime}
-                      className="sm-w-auto w-full"
+                      className="w-full transition-all hover:scale-105"
                     >
-                      Confirmar
+                      Confirmar Reserva
                     </Button>
                   </SheetFooter>
                 </SheetContent>
@@ -293,7 +307,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         open={signInDialogIsOpen}
         onOpenChange={(open) => setSignInDialogIsOpen(open)}
       >
-        <DialogContent className="w-[90%]">
+        <DialogContent className="w-[90%] sm:max-w-md">
           <SignInDialog />
         </DialogContent>
       </Dialog>

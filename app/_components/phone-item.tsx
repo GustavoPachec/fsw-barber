@@ -15,17 +15,22 @@ const PhoneItem = ({ phone }: PhoneItemProps) => {
   }
 
   return (
-    <div className="flex justify-between" key={phone}>
+    <div className="flex items-center justify-between rounded-lg border border-border p-3 transition-all duration-200 hover:shadow-md sm:p-4">
       {/* ESQUERDA */}
-      <div className="flex items-center gap-2">
-        <SmartphoneIcon />
-        <p className="text-sm">{phone}</p>
+      <div className="flex flex-1 items-center gap-3">
+        <div className="rounded-full bg-muted p-2">
+          <SmartphoneIcon className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+        </div>
+        <p className="text-sm font-medium text-foreground sm:text-base">
+          {phone}
+        </p>
       </div>
       {/* DIREITA */}
       <Button
-        variant="outline"
+        variant="ghost"
         size="sm"
         onClick={() => handleCopyPhoneClick(phone)}
+        className="ml-2 text-xs transition-all sm:text-sm"
       >
         Copiar
       </Button>
