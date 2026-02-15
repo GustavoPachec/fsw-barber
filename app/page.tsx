@@ -90,7 +90,7 @@ const Home = async () => {
         </section>
 
         {/* Busca Rápida Desktop */}
-        <section className="mt-8 hidden pb-3 lg:mt-10 lg:block lg:flex-col lg:items-start">
+        <section className="mt-8 hidden pb-3 lg:mt-10 lg:block lg:w-full lg:flex-col lg:items-start">
           <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Busca Rápida
           </h3>
@@ -98,8 +98,8 @@ const Home = async () => {
         </section>
 
         {/* Populares */}
-        <section className="mt-16 xl:mt-20 xl:pt-16">
-          <h2 className="mb-5 text-sm font-bold uppercase text-gray-100 lg:text-lg">
+        <section className="mt-4 xl:mt-6 xl:pt-10">
+          <h2 className="mb-3 text-sm font-bold uppercase text-gray-100 lg:text-lg">
             Populares
           </h2>
           <CarouselBarbershopItem
