@@ -46,7 +46,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
       <main className="mx-auto w-full max-w-7xl flex-1 px-3 py-4 sm:px-6 sm:py-10 md:px-8 md:py-12 lg:px-10">
         <div className="mb-8">
           <div className="mb-6">
-            <h1 className="mb-2 text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
+            <h1 className="mb-2 text-xl font-bold text-foreground sm:text-3xl md:text-4xl">
               Barbearias
             </h1>
             <p className="text-sm text-muted-foreground sm:text-base">

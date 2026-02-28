@@ -28,9 +28,9 @@ const Home = async () => {
         <Header />
       </header>
 
-      <main className="mx-auto w-full max-w-screen-2xl p-4 pt-6 md:p-16 lg:p-16">
+      <main className="mx-auto w-full max-w-screen-2xl p-4 pt-6 md:p-10 lg:p-12">
         {/* Superior */}
-        <section className="flex flex-col gap-10 lg:flex-row xl:gap-16">
+        <section className="flex flex-col gap-6 lg:flex-row lg:gap-8 xl:gap-10">
           {/* Coluna Esquerda */}
           <div className="flex w-full flex-col justify-between lg:w-1/2 xl:w-1/2">
             <div>
@@ -50,7 +50,7 @@ const Home = async () => {
               </p>
 
               {/* Busca */}
-              <div className="w-full">
+              <div className="mt-4 w-full">
                 <Search />
               </div>
 
@@ -62,11 +62,11 @@ const Home = async () => {
 
             {/* Agendamentos */}
             {confirmedBookings.length > 0 && (
-              <div className="mt-8 xl:mt-12">
-                <h2 className="mb-5 text-xs font-bold uppercase text-gray-400">
+              <div className="mt-6 xl:mt-10">
+                <h2 className="mb-3 text-xs font-bold uppercase text-gray-100 lg:text-lg">
                   Agendamentos
                 </h2>
-                <div className="flex gap-2 overflow-x-auto xl:gap-3 [&::-webkit-scrollbar]:hidden">
+                <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                   {confirmedBookings.map((booking) => (
                     <div key={booking.id} className="flex-shrink-0">
                       <BookingItem booking={booking} />
@@ -79,7 +79,7 @@ const Home = async () => {
 
           {/* Coluna Direita */}
           <aside className="flex w-full flex-col justify-end lg:w-1/2 xl:w-1/2">
-            <h2 className="mb-5 text-sm font-bold uppercase text-gray-100 lg:text-lg">
+            <h2 className="mb-3 text-xs font-bold uppercase text-gray-100 lg:text-lg">
               Recomendados
             </h2>
             <CarouselBarbershopItem
@@ -90,16 +90,16 @@ const Home = async () => {
         </section>
 
         {/* Busca Rápida Desktop */}
-        <section className="mt-8 hidden pb-3 lg:mt-10 lg:block lg:w-full lg:flex-col lg:items-start">
-          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        <section className="mt-6 hidden pb-2 lg:mt-8 lg:block lg:w-full lg:flex-col lg:items-start">
+          <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Busca Rápida
           </h3>
           <QuickSearch />
         </section>
 
         {/* Populares */}
-        <section className="mt-4 xl:mt-6 xl:pt-10">
-          <h2 className="mb-3 text-sm font-bold uppercase text-gray-100 lg:text-lg">
+        <section className="mt-6 lg:mt-8 xl:mt-8">
+          <h2 className="mb-3 text-xs font-bold uppercase text-gray-100 lg:text-lg">
             Populares
           </h2>
           <CarouselBarbershopItem
@@ -109,8 +109,8 @@ const Home = async () => {
         </section>
 
         {/*Mais Visitadas */}
-        <section className="xl:mt-20 xl:pt-10">
-          <h2 className="mb-5 text-sm font-bold uppercase text-gray-100 lg:text-lg">
+        <section className="mt-6 lg:mt-8 xl:mt-10">
+          <h2 className="mb-3 text-xs font-bold uppercase text-gray-100 lg:text-lg">
             Mais Visitadas
           </h2>
           {mostVisitedBarbershop.length > 0 ? (

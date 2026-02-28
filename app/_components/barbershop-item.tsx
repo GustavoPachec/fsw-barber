@@ -16,7 +16,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
       <Card className="group flex min-h-0 w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-lg">
         <CardContent className="flex flex-col p-0">
           {/* IMAGEM */}
-          <div className="relative aspect-video max-h-44 w-full flex-shrink-0 overflow-hidden bg-muted sm:aspect-square sm:max-h-60">
+          <div className="relative aspect-square h-40 w-full flex-shrink-0 overflow-hidden bg-muted sm:h-56 md:h-60">
             <Image
               alt={barbershop.name}
               fill
@@ -35,16 +35,16 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
           </div>
 
           {/* TEXTO */}
-          <div className="flex min-h-0 flex-grow flex-col space-y-0.5 p-1.5 sm:space-y-2 sm:p-3">
-            <h3 className="line-clamp-1 text-xs font-semibold leading-tight sm:line-clamp-2 sm:text-sm">
+          <div className="flex min-h-0 flex-grow flex-col space-y-1 p-3 sm:space-y-2 sm:p-4">
+            <h3 className="line-clamp-2 text-sm font-semibold leading-snug sm:line-clamp-2 sm:text-base">
               {barbershop.name}
             </h3>
-            <p className="line-clamp-1 flex-grow text-xs text-muted-foreground sm:line-clamp-2">
+            <p className="line-clamp-2 flex-grow text-xs text-muted-foreground sm:text-sm">
               {barbershop.address}
             </p>
             <Button
               variant="secondary"
-              className="mt-0.5 w-full text-xs"
+              className="mt-auto w-full text-xs sm:text-sm"
               size="sm"
             >
               Reservar Agora
